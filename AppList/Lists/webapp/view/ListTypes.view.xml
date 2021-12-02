@@ -1,0 +1,31 @@
+<mvc:View controllerName="alight.Lists.controller.ListTypes"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout" displayBlock="true">
+    <Shell id="shell">
+        <App id="app">
+            <pages>
+                <Page id="page" title="{i18n>title}">
+                    <content>
+                        <IconTabBar >
+                            <items>
+                                <IconTabFilter text="{i18n>objectList}">
+                                    <List items = "{/Products}">
+                                        <items>
+                                            <ObjectListItem ></ObjectListItem>
+                                        </items>
+                                    </List>
+                                </IconTabFilter>
+                                <IconTabFilter text="{i18n>standardList}"></IconTabFilter>
+                                <IconTabFilter text="{i18n>inputList}"></IconTabFilter>
+                                <IconTabFilter text="{i18n>notificationsList}"></IconTabFilter>
+                                <IconTabFilter text="{i18n>customList}"></IconTabFilter>
+                            </items>
+                        </IconTabBar>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View>
