@@ -11,16 +11,70 @@
                         <IconTabBar >
                             <items>
                                 <IconTabFilter text="{i18n>objectList}">
-                                    <List items = "{/Products}">
+                                    <List items = "{path: '/Products', filters: [{path: 'Brand', operator: 'EQ', value1: 'Compaq'}]}">
                                         <items>
-                                            <ObjectListItem ></ObjectListItem>
+                                            <ObjectListItem title = "{Material} {Brand} {Model}" number="{Price}" numberUnit="{Currency}" type="Detail">
+                                                <ObjectAttribute text = "{Brand}"/>
+                                                <ObjectAttribute text = "{Weight}"/>
+                                            </ObjectListItem>
                                         </items>
                                     </List>
                                 </IconTabFilter>
-                                <IconTabFilter text="{i18n>standardList}"></IconTabFilter>
-                                <IconTabFilter text="{i18n>inputList}"></IconTabFilter>
-                                <IconTabFilter text="{i18n>notificationsList}"></IconTabFilter>
-                                <IconTabFilter text="{i18n>customList}"></IconTabFilter>
+                                <IconTabFilter text="{i18n>standardList}">
+                                    <Select selectedKey="{/typeSelection}">
+                                        <items>
+                                            <core:Item key="None" text = "{i18n>none}"/>
+                                            <core:Item key="MultiSelect" text = "{i18n>multiSelect}"/>
+                                            <core:Item key="SingleSelect" text = "{i18n>singleSelect}"/>
+                                            <core:Item key="SingleSelectLeft" text = "{i18n>singleSelectLeft}"/>
+                                            <core:Item key="SingleSelectMaster" text = "{i18n>singleSelectMaster}"/>
+                                        </items>
+                                    </Select>
+                                    <Button text = "{i18n>showSelectedItems}" press="onPressShowSelectedItems" class = "sapUiSmallMarginBegin"/>
+                                    <Button text = "{i18n>deleteSelectedItems}" press="onPressDeleteSelectedItems" class = "sapUiSmallMarginBegin"/>
+                                    <List items = "{path: '/Products', 
+                                                    sorter: {path: 'Brand', 
+                                                            descending: true, 
+                                                            group: true}, 
+                                                    groupHeaderFactory: '.getGroupHeader'}" mode="{/typeSelection}" id = "standardList">
+                                        <StandardListItem title = "{Material} {Brand} {Model}" description="{Weight}" info="{Price} {Currency}" type="Active" />
+                                    </List>
+                                </IconTabFilter>
+
+                                <IconTabFilter text="{i18n>inputList}">
+                                    <List items = "{/Products}" mode="Delete" delete="onDeleteRow">
+                                        <items>
+                                            <InputListItem label = "{Brand}">
+                                                <Select items = "{Properties}">
+                                                    <core:Item key = "{Id}" text = "{Text}">
+                                                    </core:Item>
+                                                </Select>
+                                            </InputListItem>
+                                        </items>
+                                    </List>
+                                </IconTabFilter>
+
+                                <IconTabFilter text="{i18n>notificationsList}">
+                                    <List items = "{/News}">
+                                        <items>
+                                            <NotificationListItem title="{Title}" description="{Description}" showCloseButton ="{ShowCloseButton}" priority="{Priority}" unread="{Unread}" authorName="{Author}"/>
+                                        </items>
+                                    </List>
+                                </IconTabFilter>
+
+                                <IconTabFilter text="{i18n>customList}">
+                                    <List items = "{/News}">
+                                        <items>
+                                            <CustomListItem >
+                                                <layout:Grid defaultSpan="XL3 L3 M6 S12">
+                                                    <Text text = "{Title}"/>
+                                                    <Text text = "{Author}"/>
+                                                    <Text text = "{Description}"/>
+                                                </layout:Grid>
+                                            </CustomListItem>
+                                        </items>
+                                    </List>
+                                </IconTabFilter>
                             </items>
                         </IconTabBar>
                     </content>
